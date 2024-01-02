@@ -6,6 +6,7 @@ public class Collectible : MonoBehaviour
 {
 
     [SerializeField] private CollectibleType collectibleType;
+    [SerializeField] private int amount;
 
     #region Collisions
     private void OnTriggerEnter2D(Collider2D collision)
