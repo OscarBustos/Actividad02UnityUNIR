@@ -5,6 +5,6 @@ using UnityEngine;
 public enum CollectibleType
 {
 
-    Health, 
+    Lifes, 
     Point
 }
