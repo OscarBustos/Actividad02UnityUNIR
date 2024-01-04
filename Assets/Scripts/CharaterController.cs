@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CharaterController : MonoBehaviour
 {
-    protected int lives;
-    protected int points;
+    [SerializeField] protected int lives;
+    [SerializeField] protected int points;
     protected float speed;
 
     protected bool isRight = true;

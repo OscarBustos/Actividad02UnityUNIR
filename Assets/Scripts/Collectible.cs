@@ -11,10 +11,9 @@ public class Collectible : MonoBehaviour
     #region Collisions
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Todo: When collision with Player, execute player's collect method.
         if (collision.gameObject.CompareTag("Player"))
         {
-            //collision.gameObject.GetComponent<Player>().CollectObject(collectableType, );
+            collision.gameObject.GetComponent<PlayerController>().CollectObject(collectibleType, amount);
             // Todo: play sound 
             gameObject.SetActive(false);
             Destroy(gameObject, 0.5f);

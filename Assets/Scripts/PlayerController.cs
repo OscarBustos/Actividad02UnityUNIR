@@ -83,6 +83,25 @@ public class PlayerController : CharaterController
         transform.localEulerAngles = Vector2.zero;
     }
 
+    public void CollectObject(CollectibleType collectibleType, int amount)
+    {
+        switch (collectibleType)
+        {
+            case CollectibleType.Point: 
+                { 
+                    points += amount;
+                    break;
+                }
+
+            case CollectibleType.Lifes:
+                {
+                    lives += amount;
+                    break;
+                }
+        }
+        
+    }
+
     /// ------------------------------------------------------------------------------------------------------------------------
     /// Events
     /// ------------------------------------------------------------------------------------------------------------------------
