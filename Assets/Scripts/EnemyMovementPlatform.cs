@@ -12,19 +12,22 @@ public class EnemyMovementPlatform : EnemyController
     void Start()
     {
         distance = 1.31f;
-        speed = 6f;
         isRight = true;
     }
 
     private void FixedUpdate()
     {
-        RaycastHit2D infoGround = Physics2D.Raycast(groundController.position, Vector2.down, distance);
-
-        rb.velocity = new Vector2(speed, rb.velocity.y);
-
-        if (infoGround == false)
+        if (!IsDead())
         {
-            Flip();
+
+            RaycastHit2D infoGround = Physics2D.Raycast(groundController.position, Vector2.down, distance);
+
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+
+            if (infoGround == false)
+            {
+                Flip();
+            }
         }
     }
 
