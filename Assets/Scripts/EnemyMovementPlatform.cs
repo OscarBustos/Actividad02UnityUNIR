@@ -5,7 +5,9 @@ using UnityEngine;
 public class EnemyMovementPlatform : EnemyController
 {
     [SerializeField] private Transform groundController;
-    
+    [SerializeField] private LayerMask groundLayerMask;
+
+
     private float distance;
 
     // Start is called before the first frame update
@@ -20,7 +22,7 @@ public class EnemyMovementPlatform : EnemyController
         if (!IsDead())
         {
 
-            RaycastHit2D infoGround = Physics2D.Raycast(groundController.position, Vector2.down, distance);
+            RaycastHit2D infoGround = Physics2D.Raycast(groundController.position, Vector2.down, distance, groundLayerMask);
 
             rb.velocity = new Vector2(speed, rb.velocity.y);
 

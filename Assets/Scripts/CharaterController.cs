@@ -12,7 +12,7 @@ public class CharaterController : MonoBehaviour
     [SerializeField] private bool dead = false;
     protected bool isGrounded; 
 
-    private SpriteRenderer playerRenderer;
+    protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D rb;
 
     private AudioSource sound;
@@ -20,7 +20,7 @@ public class CharaterController : MonoBehaviour
 
     private void Awake()
     {
-        playerRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         sound = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
@@ -37,20 +37,20 @@ public class CharaterController : MonoBehaviour
     {
         if (direction > 0)
         {
-            if (!playerRenderer.flipX)
+            if (!spriteRenderer.flipX)
             {
                 PlaySound();
             }
-            playerRenderer.flipX = true;
+            spriteRenderer.flipX = true;
             isRight = true;
         }
         else if (direction < 0)
         {
-            if (playerRenderer.flipX)
+            if (spriteRenderer.flipX)
             {
                 PlaySound();
             }
-            playerRenderer.flipX = false;
+            spriteRenderer.flipX = false;
             isRight = false;
         }
     }
