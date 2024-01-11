@@ -5,26 +5,31 @@ using UnityEngine;
 public class EnemyMovementPlatform : EnemyController
 {
     [SerializeField] private Transform groundController;
-    
+    [SerializeField] private LayerMask groundLayerMask;
+
+
     private float distance;
 
     // Start is called before the first frame update
     void Start()
     {
         distance = 1.31f;
-        speed = 6f;
         isRight = true;
     }
 
     private void FixedUpdate()
     {
-        RaycastHit2D infoGround = Physics2D.Raycast(groundController.position, Vector2.down, distance);
-
-        rb.velocity = new Vector2(speed, rb.velocity.y);
-
-        if (infoGround == false)
+        if (!IsDead())
         {
-            Flip();
+
+            RaycastHit2D infoGround = Physics2D.Raycast(groundController.position, Vector2.down, distance, groundLayerMask);
+
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+
+            if (infoGround == false)
+            {
+                Flip();
+            }
         }
     }
 

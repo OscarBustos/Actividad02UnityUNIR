@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8577608997844232012}
   - component: {fileID: 8900449216222202716}
-  - component: {fileID: 7758547980126332214}
   - component: {fileID: 6260246330847536053}
   - component: {fileID: 1166723435990673261}
   - component: {fileID: 4723959023417351611}
   - component: {fileID: 2028276462574898644}
-  m_Layer: 0
+  - component: {fileID: -8764858567379287845}
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -90,20 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7758547980126332214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5168111248208402969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40192fdaabfc73f499361f4f7886f991, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lives: 0
-  points: 0
 --- !u!114 &6260246330847536053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +104,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lives: 0
   points: 0
+  speed: 0
+  dead: 0
   groundController: {fileID: 2063460609379676816}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!61 &1166723435990673261
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,7 +125,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -147,7 +138,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -287,6 +278,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &-8764858567379287845
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5168111248208402969}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9030852349108790601
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +308,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2063460609379676816}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundController
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}

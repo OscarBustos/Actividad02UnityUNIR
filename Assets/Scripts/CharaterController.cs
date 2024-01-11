@@ -4,28 +4,31 @@ using UnityEngine;
 
 public class CharaterController : MonoBehaviour
 {
-    [SerializeField] protected int lives;
+    [SerializeField] protected int lives = 1;
     [SerializeField] protected int points;
-    protected float speed;
+    [SerializeField] protected float speed;
 
     protected bool isRight = true;
-    private bool dead = false;
+    [SerializeField] private bool dead = false;
     protected bool isGrounded; 
 
-    private SpriteRenderer playerRenderer;
+    protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D rb;
 
     private AudioSource sound;
+    protected Animator animator;
 
     private void Awake()
     {
-        playerRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        sound = GetComponent<AudioSource>();       
+        sound = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
     }
 
+    #region Methods
 
-    private void Sound()
+    private void PlaySound()
     {
         sound.Play();
     }
@@ -34,29 +37,28 @@ public class CharaterController : MonoBehaviour
     {
         if (direction > 0)
         {
-            if (!playerRenderer.flipX)
+            if (!spriteRenderer.flipX)
             {
-                Sound();
+                PlaySound();
             }
-            playerRenderer.flipX = true;
+            spriteRenderer.flipX = true;
             isRight = true;
         }
         else if (direction < 0)
         {
-            if (playerRenderer.flipX)
+            if (spriteRenderer.flipX)
             {
-                Sound();
+                PlaySound();
             }
-            playerRenderer.flipX = false;
+            spriteRenderer.flipX = false;
             isRight = false;
         }
     }
 
-    /// ------------------------------------------------------------------------------------------------------------------------
-    /// Getters and setters
-    /// ------------------------------------------------------------------------------------------------------------------------
-    /// 
+    #endregion
 
+    #region Getters and Setters
+    
     public int GetLives()
     {
         return lives;
@@ -87,18 +89,6 @@ public class CharaterController : MonoBehaviour
         speed = num;
     }
 
-    public bool IsDead()
-    {
-        if (lives <= 0)
-        {
-            dead = true;
-            //gameObject.SetActive(false);
-        }
-        else
-        {
-            dead = false;
-        }
-
-        return dead;
-    }
+    public bool IsDead() => dead = lives <= 0 || dead ? true : false;
+    #endregion
 }
