@@ -7,7 +7,10 @@ public class PlayerController : CharaterController
 {
     private float jumpForce = 6f;
     private int maxJumps = 2; 
-    private int numJumps; 
+    private int numJumps;
+
+    [Header("Animator")]
+    private Animator anim;
 
 
     // Start is called before the first frame update
@@ -17,6 +20,8 @@ public class PlayerController : CharaterController
         speed = 5f;
         numJumps = 0;
         lives = 5;
+
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -30,8 +35,10 @@ public class PlayerController : CharaterController
         {
             Move();
             StandUp();
-        }
-        
+            anim.SetFloat("moveSpeed", Mathf.Abs(rb.velocity.x));
+            Debug.Log(Mathf.Abs(rb.velocity.x));
+            anim.SetBool("isGrounded", isGrounded);
+        }        
     }
 
     private void Move()

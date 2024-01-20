@@ -35,7 +35,7 @@ public class CharaterController : MonoBehaviour
 
     protected void Flip(int direction)
     {
-        if (direction > 0)
+        if (direction < 0)
         {
             if (!spriteRenderer.flipX)
             {
@@ -44,7 +44,7 @@ public class CharaterController : MonoBehaviour
             spriteRenderer.flipX = true;
             isRight = true;
         }
-        else if (direction < 0)
+        else if (direction > 0)
         {
             if (spriteRenderer.flipX)
             {
