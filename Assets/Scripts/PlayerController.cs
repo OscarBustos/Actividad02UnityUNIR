@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerController : CharaterController
 {
-    private float jumpForce = 6f;
+    [SerializeField] private float jumpForce = 6f;
     private int maxJumps = 2; 
     private int numJumps;
 
@@ -24,7 +24,7 @@ public class PlayerController : CharaterController
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (IsDead())
         {
@@ -66,12 +66,15 @@ public class PlayerController : CharaterController
 
     void HorizontalMovement(int direction)
     {
-        rb.velocity = new Vector2(speed * Input.GetAxis("Horizontal"), rb.velocity.y);
+        Vector2 targetVelocity = new Vector2(speed * Input.GetAxis("Horizontal"), rb.velocity.y);
+        Vector3 velocity = Vector3.zero;
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, 0.05f);
         Flip(direction);
     }
 
     private void Jump()
     {
+        rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         numJumps++;
         isGrounded = false;
