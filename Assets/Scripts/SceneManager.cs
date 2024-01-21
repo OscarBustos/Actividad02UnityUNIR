@@ -19,6 +19,7 @@ public class SceneLoader : MonoBehaviour
 
     public void StartGame()
     {
+        StartCoroutine(Wait());
         SceneManager.LoadScene("PauseMenu");
     }
 
@@ -32,4 +33,20 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void Pause()
+    {
+        Time.timeScale = 0.0f;
+    }
+    public void Resume()
+    {
+        Time.timeScale = 1.0f;
+    }
+
+    IEnumerator Wait()
+    {
+        // suspend execution for 2 seconds
+        yield return new WaitForSeconds(10.0f);
+    }
+
 }
