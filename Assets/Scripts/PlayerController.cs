@@ -41,6 +41,12 @@ public class PlayerController : CharaterController
         }        
     }
 
+    #region Methods
+
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Methods
+    /// ------------------------------------------------------------------------------------------------------------------------
+
     private void Move()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
@@ -61,7 +67,7 @@ public class PlayerController : CharaterController
 
     void HorizontalMovement(int direction)
     {
-        transform.Translate(Vector2.right * direction * speed * Time.deltaTime);
+        rb.velocity = new Vector2(speed * Input.GetAxis("Horizontal"), rb.velocity.y);
         Flip(direction);
     }
 
@@ -108,11 +114,14 @@ public class PlayerController : CharaterController
         }
         
     }
+    #endregion
+
+
+    #region Events
 
     /// ------------------------------------------------------------------------------------------------------------------------
     /// Events
     /// ------------------------------------------------------------------------------------------------------------------------
-    ///
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -127,4 +136,6 @@ public class PlayerController : CharaterController
             lives --;
         }
     }
+
+    #endregion
 }
