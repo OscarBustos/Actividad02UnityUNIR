@@ -38,13 +38,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameStarted)
-        {
-            currentTime = Time.timeSinceLevelLoad;
-            currentTimeInMinutes = (int)currentTime / TIME_UNIT;
-            currentTimeInHours = (int)currentTimeInMinutes / TIME_UNIT;
-            currentTimeInSeconds = (int)currentTime - (currentTimeInMinutes * TIME_UNIT);
-            OnTimeChanged?.Invoke("Time on game: " + currentTimeInHours + ":" + currentTimeInMinutes + ":" + currentTimeInSeconds);
-        }        
+        currentTime = Time.timeSinceLevelLoad;
+        currentTimeInMinutes = (int)currentTime / TIME_UNIT;
+        currentTimeInHours = (int)currentTimeInMinutes / TIME_UNIT;
+        currentTimeInSeconds = (int)currentTime - (currentTimeInMinutes * TIME_UNIT);
+        OnTimeChanged?.Invoke("Time on game: " + currentTimeInHours + ":" + currentTimeInMinutes + ":" + currentTimeInSeconds);
+     
     }
 }

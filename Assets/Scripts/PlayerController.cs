@@ -14,9 +14,9 @@ public class PlayerController : CharaterController
     void Start()
     {
         isGrounded = true;
-        speed = 5f;
+        //speed = 5f;
         numJumps = 0;
-        lives = 5;
+        //lives = 5;
     }
 
     // Update is called once per frame
