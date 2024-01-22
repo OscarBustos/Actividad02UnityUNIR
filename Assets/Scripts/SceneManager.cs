@@ -20,7 +20,7 @@ public class SceneLoader : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(Wait());
-        SceneManager.LoadScene("PauseMenu");
+        SceneManager.LoadScene("Level01");
     }
 
     public void QuitGame()
