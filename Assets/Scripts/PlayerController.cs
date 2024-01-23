@@ -5,27 +5,41 @@ using UnityEngine;
 
 public class PlayerController : CharaterController
 {
-    private float jumpForce = 6f;
+    [SerializeField] private float jumpForce = 6f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
     private int maxJumps = 2; 
     private int numJumps;
 
     [Header("Animator")]
     private Animator anim;
 
+    private int direction;
+    private bool jump;
+    private bool jumped;
+    private float onAirTime;
+    private bool falling;
 
     // Start is called before the first frame update
     void Start()
     {
         isGrounded = true;
-        speed = 5f;
+        //speed = 5f;
         numJumps = 0;
-        lives = 5;
-
+        //lives = 5;
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
+    {
+        Move();
+        if (!isGrounded)
+        {
+            isGrounded = IsGrounded();
+        }
+    }
+    private void FixedUpdate()
     {
         if (IsDead())
         {
@@ -33,55 +47,86 @@ public class PlayerController : CharaterController
         }
         else
         {
-            Move();
+            
+            HorizontalMovement(direction);
             StandUp();
+            Jump();
             anim.SetFloat("moveSpeed", Mathf.Abs(rb.velocity.x));
-            Debug.Log(Mathf.Abs(rb.velocity.x));
             anim.SetBool("isGrounded", isGrounded);
         }        
     }
 
     #region Methods
 
-    /// ------------------------------------------------------------------------------------------------------------------------
-    /// Methods
-    /// ------------------------------------------------------------------------------------------------------------------------
-
     private void Move()
     {
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
-            HorizontalMovement(-1);
+            direction = -1;
         }
         else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
-            HorizontalMovement(1);
+            direction = 1;
         }
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && (isGrounded || DoubleJump()))
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)))
         {
-            Jump();
+            jump = true;
         }
+        
     }
 
 
     void HorizontalMovement(int direction)
     {
-        rb.velocity = new Vector2(speed * Input.GetAxis("Horizontal"), rb.velocity.y);
+        Vector2 targetVelocity = new Vector2(speed * Input.GetAxis("Horizontal"), rb.velocity.y);
+        Vector3 velocity = Vector3.zero;
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, 0.05f);
         Flip(direction);
     }
 
     private void Jump()
     {
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        numJumps++;
-        isGrounded = false;
+        
+        if (!falling)
+        {
+            onAirTime = 0;
+        }
+        else
+        {
+            onAirTime += Time.fixedDeltaTime;
+        }
+
+        if (jump)
+        {
+            bool canJump = false;
+            if (falling && !jumped)
+            {
+                canJump = (onAirTime > 0 && onAirTime < 0.25f) && numJumps == maxJumps ? true : false;
+            }
+             
+            
+           if (isGrounded /*|| canJump/* || DoubleJump()*/)
+            {
+                
+                Debug.Log("Before jumped " + jumped + " IsGrounded " + isGrounded + " onAirTime " + onAirTime + " DoubleJump " + DoubleJump() + " NumJumps " + numJumps + " Falling " + falling);
+
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                jumped = true;
+                numJumps++;
+                isGrounded = false;
+                Debug.Log("After jumped " + jumped + " IsGrounded " + isGrounded + " onAirTime " + onAirTime + " DoubleJump " + DoubleJump() + " NumJumps " + numJumps + " Falling " + falling);
+            }
+        }       
+        jump = false;
+
     }
 
 
     private bool DoubleJump()
     {
-        if (!isGrounded && (numJumps < maxJumps))
+        if (!isGrounded && !falling && (numJumps < maxJumps))
         {
             return true;
         }
@@ -114,24 +159,34 @@ public class PlayerController : CharaterController
         }
         
     }
+
+    private bool IsGrounded()
+    {
+        bool grounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        if (grounded)
+        {
+            numJumps = 0;
+            jumped = false;
+            falling = false;
+        } else if (!grounded && !jumped)
+        {
+            falling = true;
+            numJumps = 2;
+        }
+        return grounded;
+    }
     #endregion
 
 
-    #region Events
-
-    /// ------------------------------------------------------------------------------------------------------------------------
-    /// Events
-    /// ------------------------------------------------------------------------------------------------------------------------
-
+    #region Collisions
+     
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // The player is on the ground
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && !isGrounded)
         {
-            isGrounded = true;
-            numJumps = 0;
+            IsGrounded();
         }
-        if (collision.gameObject.CompareTag("Enemy"))
+        else if (collision.gameObject.CompareTag("Enemy"))
         {
             lives --;
         }
