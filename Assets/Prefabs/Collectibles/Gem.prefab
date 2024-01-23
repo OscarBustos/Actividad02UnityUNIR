@@ -123,7 +123,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectibleType: 1
   amount: 10
-  audioSource: {fileID: 0}
 --- !u!61 &3895184506834996248
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -180,7 +179,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6929cca12dc578343882927efa802a2a, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

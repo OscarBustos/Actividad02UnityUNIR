@@ -195,6 +195,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2.28
       objectReference: {fileID: 0}
+    - target: {fileID: 2028276462574898644, guid: 23052ef3338f4fa419e36c05353966f0, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4723959023417351611, guid: 23052ef3338f4fa419e36c05353966f0, type: 3}
       propertyPath: m_BodyType
       value: 1

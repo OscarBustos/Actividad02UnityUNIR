@@ -30,19 +30,14 @@ public class PlatformMovement : MonoBehaviour
             float y = originalPosition.y + maxVerticalDistance * verticalDirection;
             targetPosition = new Vector3(x, y, 0);
             moving = true;
-            Debug.Log("Current" + originalPosition);
-            Debug.Log("Target" + targetPosition);
         } 
         else if (transform.position == targetPosition) {
             horizontalDirection *= -1;
             verticalDirection *= -1;
             moving = false;
             originalPosition = transform.position;
-            Debug.Log("Current" + originalPosition);
-            Debug.Log("Target" + targetPosition);
         } else if(moving)
         {
-            Debug.Log("Moving" + targetPosition);
             transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
         }
     }

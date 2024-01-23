@@ -20,6 +20,11 @@ public class PlayerController : CharaterController
     private float onAirTime;
     private bool falling;
 
+    [SerializeField] private bool canMove;
+    [SerializeField] private bool canJump;
+    [SerializeField] private bool canDoubleJump;
+    [SerializeField] private bool canWalkJump;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,20 +65,19 @@ public class PlayerController : CharaterController
 
     private void Move()
     {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A) && canMove)
         {
             direction = -1;
         }
-        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) && canMove)
         {
             direction = 1;
         }
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)))
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && canJump)
         {
             jump = true;
         }
-        
     }
 
 
@@ -192,5 +196,28 @@ public class PlayerController : CharaterController
         }
     }
 
+    #endregion
+
+
+    #region setters and getters
+    public void SetCanMove()
+    {
+        canMove = true;
+    }
+
+    public void SetCanJump()
+    {
+        canJump = true;
+    }
+
+    public void SetCanDoubleJump()
+    {
+        canDoubleJump = true;
+    }
+
+    public void SetCanWallJump()
+    {
+        canWalkJump = true;
+    }
     #endregion
 }
