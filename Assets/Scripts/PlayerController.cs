@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 
@@ -8,6 +10,7 @@ public class PlayerController : CharaterController
     [SerializeField] private float jumpForce = 6f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float wallRayDistance = 1;
     private int maxJumps = 2; 
     private int numJumps;
 
@@ -25,10 +28,25 @@ public class PlayerController : CharaterController
     [SerializeField] private bool canDoubleJump;
     [SerializeField] private bool canWalkJump;
 
+
+    private int fallingJumps = 0;
+    private int maxFallingJumps = 1;
+    private bool jumpedFromGround;
+    private bool wallCollision;
+    private bool leftWall;
+    private bool rightWall;
+    private int leftWallJumpCount;
+    private int rightWallJumpCount;
+    private JumpOrigin jumpOrigin;
+
+    public enum JumpOrigin
+    {
+        Wall, Air, Ground
+    }
     // Start is called before the first frame update
     void Start()
     {
-        isGrounded = true;
+        //isGrounded = true;
         //speed = 5f;
         numJumps = 0;
         //lives = 5;
@@ -39,10 +57,7 @@ public class PlayerController : CharaterController
     private void Update()
     {
         Move();
-        if (!isGrounded)
-        {
-            isGrounded = IsGrounded();
-        }
+        
     }
     private void FixedUpdate()
     {
@@ -52,10 +67,11 @@ public class PlayerController : CharaterController
         }
         else
         {
-            
+            isGrounded = IsGrounded();
+            HandleWallCollision();
             HorizontalMovement(direction);
             StandUp();
-            Jump();
+            HandleJump();
             anim.SetFloat("moveSpeed", Mathf.Abs(rb.velocity.x));
             anim.SetBool("isGrounded", isGrounded);
         }        
@@ -89,48 +105,85 @@ public class PlayerController : CharaterController
         Flip(direction);
     }
 
-    private void Jump()
+    private void HandleJump()
     {
-        
-        if (!falling)
+        if (falling)
         {
-            onAirTime = 0;
+            HandleFalling();
+        } 
+        else if(isGrounded)
+        {
+            HandleJumpFromGround();
+        } 
+        else if (wallCollision)
+        {
+            HandleJumpFromWall();
         }
-        else
+        if (DoubleJump())
         {
-            onAirTime += Time.fixedDeltaTime;
+            HandleDoubleJump();
         }
-
-        if (jump)
-        {
-            bool canJump = false;
-            if (falling && !jumped)
-            {
-                canJump = (onAirTime > 0 && onAirTime < 0.25f) && numJumps == maxJumps ? true : false;
-            }
-             
-            
-           if (isGrounded /*|| canJump/* || DoubleJump()*/)
-            {
-                
-                Debug.Log("Before jumped " + jumped + " IsGrounded " + isGrounded + " onAirTime " + onAirTime + " DoubleJump " + DoubleJump() + " NumJumps " + numJumps + " Falling " + falling);
-
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                jumped = true;
-                numJumps++;
-                isGrounded = false;
-                Debug.Log("After jumped " + jumped + " IsGrounded " + isGrounded + " onAirTime " + onAirTime + " DoubleJump " + DoubleJump() + " NumJumps " + numJumps + " Falling " + falling);
-            }
-        }       
         jump = false;
-
     }
 
+    private void HandleDoubleJump()
+    {
+        if (jump && canDoubleJump)
+        {
+            Jump();
+            jumpOrigin = JumpOrigin.Air;
+        }
+    }
+
+    private void HandleJumpFromWall()
+    {
+        if(jump && rightWall && rightWallJumpCount == 0 && direction == -1 && (jumpOrigin == JumpOrigin.Wall || jumpOrigin == JumpOrigin.Ground))
+        {
+            Jump();
+            rightWallJumpCount++;
+            jumpOrigin = JumpOrigin.Wall;
+        }
+        else if(jump && leftWall && leftWallJumpCount == 0 && direction == 1 && (jumpOrigin == JumpOrigin.Wall || jumpOrigin == JumpOrigin.Ground))
+        {
+            Jump();
+            leftWallJumpCount++;
+            jumpOrigin = JumpOrigin.Wall;
+        }
+    }
+
+    private void HandleJumpFromGround()
+    {
+        if (jump)
+        {
+            Jump();
+            jumpedFromGround = true;
+            jumpOrigin = JumpOrigin.Ground;
+        }
+    }
+
+    private void HandleFalling()
+    {
+        onAirTime += Time.fixedDeltaTime;
+        
+        if(jump && (onAirTime > 0 && onAirTime < 0.15f) &&  fallingJumps < maxFallingJumps)
+        {
+            Jump();
+            fallingJumps++;
+            jumpOrigin = JumpOrigin.Air;
+        }
+    }
+
+    private void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        numJumps++;
+        jumped = true;
+    }
 
     private bool DoubleJump()
     {
-        if (!isGrounded && !falling && (numJumps < maxJumps))
+        if (!isGrounded && !wallCollision && (numJumps < maxJumps))
         {
             return true;
         }
@@ -166,31 +219,71 @@ public class PlayerController : CharaterController
 
     private bool IsGrounded()
     {
-        bool grounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        bool grounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         if (grounded)
         {
-            numJumps = 0;
+           
+            onAirTime = 0;
             jumped = false;
+            jumpedFromGround = false;
             falling = false;
-        } else if (!grounded && !jumped)
+
+            numJumps = 0;
+            Debug.Log("Grounded");
+        } 
+        else if (!jumped && !jumpedFromGround)
         {
+            numJumps = 1;
+            Debug.Log("falling jumped  "+ jumped);
             falling = true;
-            numJumps = 2;
         }
         return grounded;
     }
+
+    private void HandleWallCollision() 
+    {
+        if (!isGrounded)
+        {
+            if (IsCollidingWithWall(Vector2.right))
+            {
+                numJumps = 0;
+                wallCollision = true;
+                rightWall = true;
+                leftWall = false;
+                leftWallJumpCount = 0;
+                Debug.Log("rightWall");
+            } 
+            else if(IsCollidingWithWall(Vector2.left))
+            {
+                numJumps = 0;
+                wallCollision = true;
+                leftWall = true;
+                rightWall = false;
+                rightWallJumpCount = 0;
+                Debug.Log("leftWall");
+            } 
+            else
+            {
+                wallCollision = false;
+                rightWall = false;
+                leftWall = false;
+                rightWallJumpCount = 0;
+                leftWallJumpCount = 0;
+                Debug.Log("NoWall");
+            }
+        }        
+    }
+
+    private bool IsCollidingWithWall(Vector2 direction) => Physics2D.Raycast(transform.position, direction, wallRayDistance, groundLayer);
     #endregion
 
 
+
     #region Collisions
-     
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") && !isGrounded)
-        {
-            IsGrounded();
-        }
-        else if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             lives --;
         }
@@ -198,6 +291,13 @@ public class PlayerController : CharaterController
 
     #endregion
 
+    #region Debug
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(groundCheck.position, 0.1f);
+    }
+    #endregion
 
     #region setters and getters
     public void SetCanMove()
