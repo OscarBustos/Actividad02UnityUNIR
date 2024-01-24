@@ -105,16 +105,22 @@ public class PlayerController : CharaterController
         Flip(direction);
     }
 
+    public void Hurt(int amount)
+    {
+        Debug.Log("Wast Hurt " + amount);
+    }
+
+    #region Jump
     private void HandleJump()
     {
         if (falling)
         {
             HandleFalling();
-        } 
-        else if(isGrounded)
+        }
+        else if (isGrounded)
         {
             HandleJumpFromGround();
-        } 
+        }
         else if (wallCollision)
         {
             HandleJumpFromWall();
@@ -183,7 +189,7 @@ public class PlayerController : CharaterController
 
     private bool DoubleJump()
     {
-        if (!isGrounded && !wallCollision && (numJumps < maxJumps))
+        if (!isGrounded && !wallCollision && jumpOrigin != JumpOrigin.Air && (numJumps < maxJumps))
         {
             return true;
         }
@@ -193,9 +199,77 @@ public class PlayerController : CharaterController
         }
     }
 
+    private bool IsGrounded()
+    {
+        bool grounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+        if (grounded)
+        {
+
+            onAirTime = 0;
+            jumped = false;
+            jumpedFromGround = false;
+            falling = false;
+
+            numJumps = 0;
+            //Debug.Log("Grounded");
+        }
+        else if (!jumped && !jumpedFromGround)
+        {
+            numJumps = 1;
+            //Debug.Log("falling jumped  " + jumped);
+            falling = true;
+        }
+        return grounded;
+    }
+
+    private void HandleWallCollision()
+    {
+        if (!isGrounded)
+        {
+            if (IsCollidingWithWall(Vector3.right))
+            {
+                numJumps = 0;
+                wallCollision = true;
+                rightWall = true;
+                leftWall = false;
+                leftWallJumpCount = 0;
+                //Debug.Log("rightWall count " + rightWallJumpCount);
+            }
+            else if (IsCollidingWithWall(Vector3.left))
+            {
+                numJumps = 0;
+                wallCollision = true;
+                leftWall = true;
+                rightWall = false;
+                rightWallJumpCount = 0;
+                //Debug.Log("leftWall count " + leftWallJumpCount);
+            }
+            else
+            {
+                wallCollision = false;
+                //Debug.Log("NoWall");
+            }
+        }
+        else
+        {
+            wallCollision = false;
+            leftWall = false;
+            leftWallJumpCount = 0;
+            rightWall = false;
+            rightWallJumpCount = 0;
+        }
+    }
+
+    private bool IsCollidingWithWall(Vector3 direction)
+    {
+        Debug.DrawLine(transform.position, transform.position + direction * wallRayDistance, Color.red);
+        return Physics2D.Raycast(transform.position, direction, wallRayDistance, groundLayer);
+    }
+
+    #endregion
     private void StandUp()
     {
-        transform.localEulerAngles = Vector3.zero;
+      //  transform.localEulerAngles = Vector3.zero;
     }
 
     public void CollectObject(CollectibleType collectibleType, int amount)
@@ -217,64 +291,7 @@ public class PlayerController : CharaterController
         
     }
 
-    private bool IsGrounded()
-    {
-        bool grounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-        if (grounded)
-        {
-           
-            onAirTime = 0;
-            jumped = false;
-            jumpedFromGround = false;
-            falling = false;
 
-            numJumps = 0;
-            Debug.Log("Grounded");
-        } 
-        else if (!jumped && !jumpedFromGround)
-        {
-            numJumps = 1;
-            Debug.Log("falling jumped  "+ jumped);
-            falling = true;
-        }
-        return grounded;
-    }
-
-    private void HandleWallCollision() 
-    {
-        if (!isGrounded)
-        {
-            if (IsCollidingWithWall(Vector2.right))
-            {
-                numJumps = 0;
-                wallCollision = true;
-                rightWall = true;
-                leftWall = false;
-                leftWallJumpCount = 0;
-                Debug.Log("rightWall");
-            } 
-            else if(IsCollidingWithWall(Vector2.left))
-            {
-                numJumps = 0;
-                wallCollision = true;
-                leftWall = true;
-                rightWall = false;
-                rightWallJumpCount = 0;
-                Debug.Log("leftWall");
-            } 
-            else
-            {
-                wallCollision = false;
-                rightWall = false;
-                leftWall = false;
-                rightWallJumpCount = 0;
-                leftWallJumpCount = 0;
-                Debug.Log("NoWall");
-            }
-        }        
-    }
-
-    private bool IsCollidingWithWall(Vector2 direction) => Physics2D.Raycast(transform.position, direction, wallRayDistance, groundLayer);
     #endregion
 
 
