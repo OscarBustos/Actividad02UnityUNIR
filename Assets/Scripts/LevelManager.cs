@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     private float waitToRespawn = 1f;
     [SerializeField] private PlayerController player;
-    [SerializeField] private LifesUIController lifesUI;
+    [SerializeField] private LifesUIController playerUI;
+
+    [SerializeField] private Goal goal;
 
     public static LevelManager instance;
 
@@ -19,7 +22,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerUI.WriteStartingProgress(goal.GetOpenCondition());
     }
 
     // Update is called once per frame
@@ -45,8 +48,20 @@ public class LevelManager : MonoBehaviour
         //player.SetRigidBody();
         //player.SetIsGrounded(true);
         player.SetLives(player.GetLives() - 1);
-        lifesUI.UpdateLifes(player.GetLives());
+        Debug.Log(player.GetLives());
         player.GetGameObject().SetActive(true);
+        UpdateLifesUI();
+    }
+
+    public void UpdateGemsUI()
+    {
+        playerUI.UpdateProgress(player.GetPoints(), goal.GetOpenCondition());
+        
+    }
+
+    public void UpdateLifesUI()
+    {
+        playerUI.UpdateLifes(player.GetLives());
     }
 
     #endregion
