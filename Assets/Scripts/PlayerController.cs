@@ -8,6 +8,7 @@ public class PlayerController : CharaterController
     private float jumpForce = 6f;
     private int maxJumps = 2; 
     private int numJumps;
+    private int maxLives;
 
     [Header("Animator")]
     private Animator anim;
@@ -130,6 +131,13 @@ public class PlayerController : CharaterController
     {
         transform.position = newPosition;
     }
+
+
+    public int GetMaxLives()
+    {
+        return maxLives;
+    }
+
     #endregion
 
 

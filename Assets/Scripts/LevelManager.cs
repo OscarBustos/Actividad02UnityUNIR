@@ -38,5 +38,6 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(waitToRespawn);
         player.GetGameObject().SetActive(true);
         player.SetPosition(CheckpointController.instance.GetSpawnPoint());
+        player.SetLives(player.GetMaxLives());
     }
 }

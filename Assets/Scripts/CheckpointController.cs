@@ -22,7 +22,7 @@ public class CheckpointController : MonoBehaviour
         spawnPoint = player.GetPosition();
     }
 
-    public void DeativateCheckpoints()
+    public void DeactivateCheckpoints()
     {
         for(int i = 0; i < checkpoints.Length; i++) 
         {
