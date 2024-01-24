@@ -44,8 +44,6 @@ public class LevelManager : MonoBehaviour
         player.GetGameObject().SetActive(true);
         player.SetHurt(false);
         player.SetPosition(CheckpointController.instance.GetSpawnPoint());
-        //player.SetRigidBody();
-        //player.SetIsGrounded(true);
         player.SetLives(player.GetLives() - 1);
         lifesUI.UpdateLifes(player.GetLives());
         player.SetHurt(false);
