@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectibleType: 0
-  amount: 2
+  amount: 1
 --- !u!82 &8664090334309408952
 AudioSource:
   m_ObjectHideFlags: 0

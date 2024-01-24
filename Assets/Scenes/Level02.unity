@@ -1617,6 +1617,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9028236733785912712, guid: 66e1f5b9f450d9f4d9c1f9ff77bd49ca, type: 3}
   m_PrefabInstance: {fileID: 1419499485}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &417388644 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7328344559271812990, guid: 66e1f5b9f450d9f4d9c1f9ff77bd49ca, type: 3}
+  m_PrefabInstance: {fileID: 1419499485}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb0c2cb6555740a419b59b2822f4797e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &423726453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2266,6 +2277,10 @@ PrefabInstance:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2669423063422295983, guid: 8cb4bddc2b2ada242bed0703414aabd4, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0ad591428b0c18c4da51fe3bf98dbc63, type: 3}
     - target: {fileID: 6269911633315915876, guid: 8cb4bddc2b2ada242bed0703414aabd4, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -2716,6 +2731,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 303392f56e19a3e499affbfb54052946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &853485637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5478621373957379973, guid: 83af1b6a3d04a624f8e61bb77621c0d9, type: 3}
+  m_PrefabInstance: {fileID: 580432666}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fae1b0edf053c24ab1498da6750dd76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &878094271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2916,6 +2942,22 @@ PrefabInstance:
     - target: {fileID: 346081828669142441, guid: 9a9dc6ccb23fd634ba49eb37963af03f, type: 3}
       propertyPath: lives
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 346081828669142441, guid: 9a9dc6ccb23fd634ba49eb37963af03f, type: 3}
+      propertyPath: canJump
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 346081828669142441, guid: 9a9dc6ccb23fd634ba49eb37963af03f, type: 3}
+      propertyPath: canMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 346081828669142441, guid: 9a9dc6ccb23fd634ba49eb37963af03f, type: 3}
+      propertyPath: canWalkJump
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 346081828669142441, guid: 9a9dc6ccb23fd634ba49eb37963af03f, type: 3}
+      propertyPath: canDoubleJump
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3061559614874832058, guid: 9a9dc6ccb23fd634ba49eb37963af03f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21916,13 +21958,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3770883650935873899, guid: 644121d7f51a82d4d87fedc829871d3d, type: 3}
+      propertyPath: goal
+      value: 
+      objectReference: {fileID: 853485637}
+    - target: {fileID: 3770883650935873899, guid: 644121d7f51a82d4d87fedc829871d3d, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 358236648}
     - target: {fileID: 3770883650935873899, guid: 644121d7f51a82d4d87fedc829871d3d, type: 3}
-      propertyPath: lifesUI
+      propertyPath: playerUI
       value: 
-      objectReference: {fileID: 1113318269}
+      objectReference: {fileID: 417388644}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23429,7 +23475,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 871253552184650985, guid: 9d98d6ed4807dc54480c3b39800c8c78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -43.29139
+      value: -41.358246
       objectReference: {fileID: 0}
     - target: {fileID: 871253552184650985, guid: 9d98d6ed4807dc54480c3b39800c8c78, type: 3}
       propertyPath: m_LocalPosition.y

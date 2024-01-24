@@ -45,5 +45,10 @@ public class Goal : MonoBehaviour
            
         }
     }
-    
+
+    public int GetOpenCondition()
+    {
+        return OpenCondition;
+    }
+
 }

@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private bool paused = false;
     private bool reload;
 
+    private bool gameOver = false;
+
     [SerializeField] private bool gameStarted = false;
 
     
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverCanvace;
     [SerializeField] private GameObject winCanvace;
 
+    private string timeOnGame;
 
     #region Events
     public Action<string> OnTimeChanged;
@@ -64,27 +67,31 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentTime += Time.deltaTime;
-        currentTimeInMinutes = (int)currentTime / TIME_UNIT;
-        currentTimeInHours = (int)currentTimeInMinutes / TIME_UNIT;
-        currentTimeInSeconds = (int)currentTime - (currentTimeInMinutes * TIME_UNIT);
-        OnTimeChanged?.Invoke("Time on game: " + currentTimeInHours + ":" + currentTimeInMinutes + ":" + currentTimeInSeconds);
-
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!gameOver)
         {
-            if (paused)
+            currentTime += Time.deltaTime;
+            currentTimeInMinutes = (int)currentTime / TIME_UNIT;
+            currentTimeInHours = (int)currentTimeInMinutes / TIME_UNIT;
+            currentTimeInSeconds = (int)currentTime - (currentTimeInMinutes * TIME_UNIT);
+            OnTimeChanged?.Invoke("Time on game: " + currentTimeInHours + ":" + currentTimeInMinutes + ":" + currentTimeInSeconds);
+
+
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                resumeButton.onClick.Invoke();
-                paused = false;
+                if (paused)
+                {
+                    resumeButton.onClick.Invoke();
+                    paused = false;
+                }
+                else
+                {
+                    pauseButton.onClick.Invoke();
+                    paused = true;
+                }
+
             }
-            else
-            {
-                pauseButton.onClick.Invoke();
-                paused = true;
-            }
-            
         }
+
 
     }
 
@@ -96,12 +103,18 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        gameOver = true;
+        timeOnGame = "Time on game: " + currentTimeInHours + ":" + currentTimeInMinutes + ":" + currentTimeInSeconds;
         gameOverCanvace.SetActive(true);
     }
 
     public void Reload()
     {
         Destroy(gameObject);
+    }
+    public string getTimeOnGame()
+    {
+        return timeOnGame;
     }
 
     public void Win()
