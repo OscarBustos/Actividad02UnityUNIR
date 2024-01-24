@@ -30,7 +30,7 @@ public class CharaterController : MonoBehaviour
     /// Methods
     /// ------------------------------------------------------------------------------------------------------------------------
 
-    private void PlaySound()
+    protected void PlaySound()
     {
         sound.Play();
     }
@@ -39,19 +39,11 @@ public class CharaterController : MonoBehaviour
     {
         if (direction < 0)
         {
-            if (!spriteRenderer.flipX)
-            {
-                PlaySound();
-            }
             spriteRenderer.flipX = true;
             isRight = true;
         }
         else if (direction > 0)
         {
-            if (spriteRenderer.flipX)
-            {
-                PlaySound();
-            }
             spriteRenderer.flipX = false;
             isRight = false;
         }
