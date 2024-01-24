@@ -33,13 +33,14 @@ public class BatMovement : EnemyController
     private void Update()
     {
         Move();
+        HandleDeath();
     }
 
     #region Methods
 
     private void Move()
     {
-        if (flying)
+        if (flying && !IsDead())
         {
             Transform[] pathPoints = playerDirection > 0 ? rightPathPoints : leftPathPoints;
             if(targetIndex >= pathPoints.Length)

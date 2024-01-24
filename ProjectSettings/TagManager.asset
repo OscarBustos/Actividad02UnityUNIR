@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Goal
   - Checkpoint
+  - WallHurtBox
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
+  - WallHurtBox
+  - Spikes
   - 
   - 
   - 
