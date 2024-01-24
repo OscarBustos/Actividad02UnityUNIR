@@ -2408,6 +2408,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb4bddc2b2ada242bed0703414aabd4, type: 3}
+--- !u!82 &697596396 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2669423063422295983, guid: 8cb4bddc2b2ada242bed0703414aabd4, type: 3}
+  m_PrefabInstance: {fileID: 697596395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &704128918 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3723607560605893966, guid: 191e482c9ea55a144b1164256a99bc1c, type: 3}
@@ -51692,6 +51697,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2047194767}
     m_Modifications:
+    - target: {fileID: 799078531697047985, guid: 66e1f5b9f450d9f4d9c1f9ff77bd49ca, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 697596396}
+    - target: {fileID: 799078531697047985, guid: 66e1f5b9f450d9f4d9c1f9ff77bd49ca, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: PlayOneShot
+      objectReference: {fileID: 0}
     - target: {fileID: 1344478658780710591, guid: 66e1f5b9f450d9f4d9c1f9ff77bd49ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -51727,6 +51740,10 @@ PrefabInstance:
     - target: {fileID: 6431152845669097303, guid: 66e1f5b9f450d9f4d9c1f9ff77bd49ca, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: Pause
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214622055506492382, guid: 66e1f5b9f450d9f4d9c1f9ff77bd49ca, type: 3}
+      propertyPath: m_SortingOrder
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9028236733785912712, guid: 66e1f5b9f450d9f4d9c1f9ff77bd49ca, type: 3}
       propertyPath: m_Pivot.x
@@ -53486,7 +53503,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 871253552184650985, guid: 9d98d6ed4807dc54480c3b39800c8c78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.891384
+      value: -42.891907
       objectReference: {fileID: 0}
     - target: {fileID: 871253552184650985, guid: 9d98d6ed4807dc54480c3b39800c8c78, type: 3}
       propertyPath: m_LocalPosition.y
