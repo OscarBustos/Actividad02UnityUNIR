@@ -8,7 +8,7 @@ public class SceneLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        PlayerPrefs.SetInt("CurrentLevel", 1);
     }
 
     // Update is called once per frame
@@ -19,7 +19,15 @@ public class SceneLoader : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(Wait());
+        GameManager.Instance.Reload();
         SceneManager.LoadScene("Level01");
+        PlayerPrefs.SetInt("CurrentLevel",1);
+    }
+
+    public void ContinueGame()
+    {
+        StartCoroutine(Wait());
+        SceneManager.LoadScene(SceneManager.GetSceneByBuildIndex(PlayerPrefs.GetInt("CurrentLevel")).name);
     }
 
     public void QuitGame()
@@ -30,6 +38,7 @@ public class SceneLoader : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        GameManager.Instance.Reload();
         SceneManager.LoadScene("MainMenu");
     }
 

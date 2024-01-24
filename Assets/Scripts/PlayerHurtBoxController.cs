@@ -6,9 +6,9 @@ public class PlayerHurtBoxController : MonoBehaviour
 {
     [SerializeField] private GameObject deathEffect;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             //collision.transform.gameObject.SetActive(false);
             Destroy(collision.gameObject);
@@ -17,7 +17,7 @@ public class PlayerHurtBoxController : MonoBehaviour
     }
 
     #region Coroutines
-    private IEnumerator DeathEffect(Collider2D collision)
+    private IEnumerator DeathEffect(Collision2D collision)
     {
         deathEffect.SetActive(true);
         GameObject instantiatedEffect = Instantiate(deathEffect, collision.transform.position, collision.transform.rotation);

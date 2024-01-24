@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,12 @@ public class Goal : MonoBehaviour
     private IEnumerator LoadScene()
     {
         fadeCanvasAnimator.SetTrigger("FadeOut");
+        PlayerPrefs.SetInt("CanMove", 1);
+        PlayerPrefs.SetInt("CanJump", 1);
+        PlayerPrefs.SetInt("CanDoubleJump", 1);
+        PlayerPrefs.SetInt("CanWallJump", 1);
         yield return new WaitForSeconds(1f);
+        PlayerPrefs.SetInt("CurrentLevel", OpenLevel);
         SceneManager.LoadScene(OpenLevel);
     }
 
