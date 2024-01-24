@@ -9,7 +9,7 @@ public class CharaterController : MonoBehaviour
     [SerializeField] protected float speed;
 
     protected bool isRight = true;
-    [SerializeField] private bool dead = false;
+    [SerializeField] protected bool dead = false;
     protected bool isGrounded; 
 
     protected SpriteRenderer spriteRenderer;

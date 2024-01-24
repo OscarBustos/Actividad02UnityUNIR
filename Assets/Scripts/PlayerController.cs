@@ -23,6 +23,7 @@ public class PlayerController : CharaterController
     private bool jumped;
     private float onAirTime;
     private bool falling;
+    private bool hurt;
 
     [SerializeField] private bool canMove;
     [SerializeField] private bool canJump;
@@ -55,6 +56,7 @@ public class PlayerController : CharaterController
         canDoubleJump = PlayerPrefs.GetInt("CanDoubleJump") == 1;
         canWalkJump = PlayerPrefs.GetInt("CanWallJump") == 1;
         transform.position = new Vector2(x, y);
+
         //isGrounded = true;
         //speed = 5f;
         numJumps = 0;
@@ -87,6 +89,10 @@ public class PlayerController : CharaterController
     }
 
     #region Methods
+    
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Methods
+    /// ------------------------------------------------------------------------------------------------------------------------
 
     private void Move()
     {
@@ -113,6 +119,7 @@ public class PlayerController : CharaterController
         rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, 0.05f);
         Flip(direction);
     }
+
 
     public void Hurt(int amount)
     {
@@ -292,6 +299,10 @@ public class PlayerController : CharaterController
 
     #region Collisions
 
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Collisions
+    /// ------------------------------------------------------------------------------------------------------------------------
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -321,7 +332,13 @@ public class PlayerController : CharaterController
 
     #endregion
 
+
     #region Debug
+    
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Debug
+    /// ------------------------------------------------------------------------------------------------------------------------
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -329,7 +346,12 @@ public class PlayerController : CharaterController
     }
     #endregion
 
-    #region setters and getters
+
+    #region Getters and Setters
+
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Getters and Setters
+    /// ------------------------------------------------------------------------------------------------------------------------
     public void SetCanMove()
     {
         canMove = true;
@@ -369,5 +391,12 @@ public class PlayerController : CharaterController
     {
         return gameObject;
     }
+
+    public void SetHurt(bool value)
+    {
+        hurt = value;
+        anim.SetBool("isHurt", hurt);
+    }
+
     #endregion
 }

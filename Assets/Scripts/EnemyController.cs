@@ -45,6 +45,7 @@ public class EnemyController : CharaterController
         animator.SetBool("Die", true);
         rb.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.5f);
+        //animator.SetBool("Die", false);
         Destroy(gameObject);
     }
     #endregion

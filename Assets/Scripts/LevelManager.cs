@@ -41,12 +41,14 @@ public class LevelManager : MonoBehaviour
 
     private void PlayerChanges()
     {
+        player.GetGameObject().SetActive(true);
+        player.SetHurt(false);
         player.SetPosition(CheckpointController.instance.GetSpawnPoint());
         //player.SetRigidBody();
         //player.SetIsGrounded(true);
         player.SetLives(player.GetLives() - 1);
         lifesUI.UpdateLifes(player.GetLives());
-        player.GetGameObject().SetActive(true);
+        player.SetHurt(false);
     }
 
     #endregion
@@ -60,6 +62,8 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator RespawnCoroutine()
     {
+        player.SetHurt(true);
+        yield return new WaitForSeconds(1f);
         player.GetGameObject().SetActive(false);
         yield return new WaitForSeconds(waitToRespawn);
         PlayerChanges();
