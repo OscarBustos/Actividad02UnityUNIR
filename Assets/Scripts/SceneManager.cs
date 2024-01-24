@@ -19,7 +19,8 @@ public class SceneLoader : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(Wait());
-        if(GameManager.Instance != null)
+        Time.timeScale = 0.0f;
+        if (GameManager.Instance != null)
         {
             GameManager.Instance.Reload();
         }
