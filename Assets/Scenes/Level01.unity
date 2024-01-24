@@ -2661,7 +2661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7231439937155067640, guid: 87ca5273fd575654f9cf41dcdb47eab1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.07
+      value: 14.019
       objectReference: {fileID: 0}
     - target: {fileID: 7231439937155067640, guid: 87ca5273fd575654f9cf41dcdb47eab1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -32740,8 +32740,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 368500721}
   - {fileID: 1281577752}
+  - {fileID: 368500721}
   - {fileID: 1157472894}
   - {fileID: 921236979}
   - {fileID: 1543872094}
@@ -33529,7 +33529,7 @@ PrefabInstance:
     - target: {fileID: 3663915358345602766, guid: d186ad181572d954c89f6328aa646f4d, type: 3}
       propertyPath: manager
       value: 
-      objectReference: {fileID: 1446132735}
+      objectReference: {fileID: 0}
     - target: {fileID: 6100983388497473437, guid: d186ad181572d954c89f6328aa646f4d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
