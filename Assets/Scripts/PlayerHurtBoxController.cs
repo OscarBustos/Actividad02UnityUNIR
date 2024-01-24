@@ -10,7 +10,8 @@ public class PlayerHurtBoxController : MonoBehaviour
     {
         if (collision.tag == "Enemy")
         {
-            collision.transform.gameObject.SetActive(false);
+            //collision.transform.gameObject.SetActive(false);
+            Destroy(collision.gameObject);
             StartCoroutine(DeathEffect(collision));
         }
     }
