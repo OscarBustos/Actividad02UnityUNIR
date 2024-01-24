@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerSpawnPoint;
 
     [SerializeField] private GameObject gameOverCanvace;
+    [SerializeField] private GameObject winCanvace;
 
 
     #region Events
@@ -101,5 +102,10 @@ public class GameManager : MonoBehaviour
     public void Reload()
     {
         Destroy(gameObject);
+    }
+
+    public void Win()
+    {
+        winCanvace.SetActive(true);
     }
 }

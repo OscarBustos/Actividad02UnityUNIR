@@ -19,7 +19,10 @@ public class SceneLoader : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(Wait());
-        GameManager.Instance.Reload();
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.Reload();
+        }
         SceneManager.LoadScene("Level01");
         PlayerPrefs.SetInt("CurrentLevel",1);
     }

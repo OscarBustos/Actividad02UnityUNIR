@@ -12,14 +12,26 @@ public class Goal : MonoBehaviour
 
     private IEnumerator LoadScene()
     {
-        fadeCanvasAnimator.SetTrigger("FadeOut");
-        PlayerPrefs.SetInt("CanMove", 1);
-        PlayerPrefs.SetInt("CanJump", 1);
-        PlayerPrefs.SetInt("CanDoubleJump", 1);
-        PlayerPrefs.SetInt("CanWallJump", 1);
-        yield return new WaitForSeconds(1f);
-        PlayerPrefs.SetInt("CurrentLevel", OpenLevel);
-        SceneManager.LoadScene(OpenLevel);
+        
+        if(OpenLevel == 100)
+        {
+            PlayerPrefs.SetInt("CanMove", 0);
+            PlayerPrefs.SetInt("CanJump", 0);
+            PlayerPrefs.SetInt("CanDoubleJump", 0);
+            PlayerPrefs.SetInt("CanWallJump", 0);
+            GameManager.Instance.Win();
+        } else
+        {
+            fadeCanvasAnimator.SetTrigger("FadeOut");
+            PlayerPrefs.SetInt("CanMove", 1);
+            PlayerPrefs.SetInt("CanJump", 1);
+            PlayerPrefs.SetInt("CanDoubleJump", 1);
+            PlayerPrefs.SetInt("CanWallJump", 1);
+            yield return new WaitForSeconds(1f);
+            PlayerPrefs.SetInt("CurrentLevel", OpenLevel);
+            SceneManager.LoadScene(OpenLevel);
+        }
+        
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
