@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         ChangePlayerSpawningPoint(playerSpawnPoint);
         if (instance == null || reload)
         {
