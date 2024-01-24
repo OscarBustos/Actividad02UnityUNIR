@@ -350,5 +350,25 @@ public class PlayerController : CharaterController
     {
         canWalkJump = true;
     }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public void SetPosition(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+    }
+
+    public int GetMaxLives()
+    {
+        return maxLives;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
     #endregion
 }

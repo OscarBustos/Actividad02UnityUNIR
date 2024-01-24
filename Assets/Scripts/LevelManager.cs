@@ -41,9 +41,9 @@ public class LevelManager : MonoBehaviour
     private void PlayerChanges()
     {
         player.SetPosition(CheckpointController.instance.GetSpawnPoint());
-        player.SetRigidBody();
-        player.SetIsGrounded(true);
-        player.SetLives(player.GetMaxLives());
+        //player.SetRigidBody();
+        //player.SetIsGrounded(true);
+        player.SetLives(player.GetLives() - 1);
         player.GetGameObject().SetActive(true);
     }
 
