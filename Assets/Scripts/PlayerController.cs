@@ -195,7 +195,7 @@ public class PlayerController : CharaterController
 
     private void StandUp()
     {
-        transform.localEulerAngles = Vector2.zero;
+        transform.localEulerAngles = Vector3.zero;
     }
 
     public void CollectObject(CollectibleType collectibleType, int amount)
