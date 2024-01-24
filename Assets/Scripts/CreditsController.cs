@@ -31,7 +31,7 @@ public class CreditsController : MonoBehaviour
     {
         if(time > 0) //Si todavía no se han acabado los 5 segundos, mostrar el mensaje por pantalla
         {
-            infoText.text = "In " + time.ToString() + " seconds you will see the credits.\nThank you so much for playing our game!";
+            infoText.text = "You have played "+ GameManager.Instance.getTimeOnGame() +".\nIn " + time.ToString() + " seconds you will see the credits.\nThank you so much for playing our game!";
             time -= 1;
         }
         else //Si ya se han acabado, desactivar el game object y el invoke a la función

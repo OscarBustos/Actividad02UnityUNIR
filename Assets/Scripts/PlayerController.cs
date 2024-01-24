@@ -285,6 +285,16 @@ public class PlayerController : CharaterController
     {
         LevelManager.instance.RespawnPlayer();
     }
+    
+    public void UpdateProgress()
+    {
+        LevelManager.instance.UpdateGemsUI();
+    }
+
+    public void UpdateLifes()
+    {
+        LevelManager.instance.UpdateLifesUI();
+    }
 
     #endregion
 
@@ -307,12 +317,14 @@ public class PlayerController : CharaterController
             case CollectibleType.Point:
                 {
                     points += amount;
+                    UpdateProgress();
                     break;
                 }
 
             case CollectibleType.Lifes:
                 {
                     lives += amount;
+                    UpdateLifes();
                     break;
                 }
         }

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.Android.Types;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +10,8 @@ public class LifesUIController : MonoBehaviour
     [SerializeField] GameObject[] lifesHUD;
     [SerializeField] Sprite spriteLife;
     [SerializeField] Sprite spriteLooseLife;
+
+    [SerializeField] TextMeshProUGUI progressText; //Texto de info
     // Start is called before the first frame update
     void Start()
     {
@@ -44,5 +48,15 @@ public class LifesUIController : MonoBehaviour
         {
             lifesHUD[0].gameObject.GetComponent<Image>().overrideSprite = spriteLooseLife;
         }
+    }
+
+    public void UpdateProgress(int progress, int goal)
+    {
+        progressText.text = "Progress:"+progress.ToString()+"/"+ goal.ToString();
+    }
+
+    public void WriteStartingProgress(int goal)
+    {
+        progressText.text = "Progress:0/"+goal.ToString();
     }
 }

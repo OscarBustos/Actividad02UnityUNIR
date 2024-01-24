@@ -370,6 +370,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2154041566331637854, guid: d186ad181572d954c89f6328aa646f4d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6100983388497473437, guid: d186ad181572d954c89f6328aa646f4d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -478,6 +482,10 @@ PrefabInstance:
     - target: {fileID: 678901424844876595, guid: f2c7c3629d8886942afc45927d90b527, type: 3}
       propertyPath: m_Name
       value: WinCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 678901424844876595, guid: f2c7c3629d8886942afc45927d90b527, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1154918944926229886, guid: f2c7c3629d8886942afc45927d90b527, type: 3}
       propertyPath: m_Pivot.x
