@@ -22,15 +22,15 @@ public class LifesUIController : MonoBehaviour
 
     public void UpdateLifes(int lifes)
     {
-        if(lifes < 3) //Si el player tiene 2 vidas
+        if(lifes == 2) //Si el player tiene 2 vidas
         {
             lifesHUD[2].gameObject.GetComponent<Image>().overrideSprite = spriteLooseLife;
         }
-        else if(lifes < 2) //Si el player tiene 1 vida
+        else if(lifes == 1) //Si el player tiene 1 vida
         {
             lifesHUD[1].gameObject.GetComponent<Image>().overrideSprite = spriteLooseLife;
         }
-        else if(lifes < 1) //Si el player tiene 0 vidas
+        else if(lifes == 0) //Si el player tiene 0 vidas
         {
             lifesHUD[0].gameObject.GetComponent<Image>().overrideSprite = spriteLooseLife;
         }
