@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     private float waitToRespawn = 1f;
     [SerializeField] private PlayerController player;
+    [SerializeField] private LifesUIController lifesUI;
 
     public static LevelManager instance;
 
@@ -44,6 +45,7 @@ public class LevelManager : MonoBehaviour
         //player.SetRigidBody();
         //player.SetIsGrounded(true);
         player.SetLives(player.GetLives() - 1);
+        lifesUI.UpdateLifes(player.GetLives());
         player.GetGameObject().SetActive(true);
     }
 
