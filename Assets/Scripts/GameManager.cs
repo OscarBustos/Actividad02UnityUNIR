@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerSpawnPoint;
 
     [SerializeField] private GameObject gameOverCanvace;
+    [SerializeField] private GameObject winCanvace;
 
     private string timeOnGame;
 
@@ -111,9 +112,13 @@ public class GameManager : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
     public string getTimeOnGame()
     {
         return timeOnGame;
+    }
+
+    public void Win()
+    {
+        winCanvace.SetActive(true);
     }
 }
