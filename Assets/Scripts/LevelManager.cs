@@ -27,17 +27,41 @@ public class LevelManager : MonoBehaviour
         
     }
 
+    #region Methods
+
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Methods
+    /// ------------------------------------------------------------------------------------------------------------------------
+
     public void RespawnPlayer()
     {
         StartCoroutine(RespawnCoroutine());
     }
 
+    private void PlayerChanges()
+    {
+        player.SetPosition(CheckpointController.instance.GetSpawnPoint());
+        player.SetRigidBody();
+        player.SetIsGrounded(true);
+        player.SetLives(player.GetMaxLives());
+        player.GetGameObject().SetActive(true);
+    }
+
+    #endregion
+
+
+    #region Coroutines
+
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Coroutines
+    /// ------------------------------------------------------------------------------------------------------------------------
+
     IEnumerator RespawnCoroutine()
     {
         player.GetGameObject().SetActive(false);
         yield return new WaitForSeconds(waitToRespawn);
-        player.GetGameObject().SetActive(true);
-        player.SetPosition(CheckpointController.instance.GetSpawnPoint());
-        player.SetLives(player.GetMaxLives());
+        PlayerChanges();
     }
+
+    #endregion
 }

@@ -22,6 +22,13 @@ public class CheckpointController : MonoBehaviour
         spawnPoint = player.GetPosition();
     }
 
+
+    #region Methods
+
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Methods
+    /// ------------------------------------------------------------------------------------------------------------------------
+    
     public void DeactivateCheckpoints()
     {
         for(int i = 0; i < checkpoints.Length; i++) 
@@ -29,6 +36,15 @@ public class CheckpointController : MonoBehaviour
             checkpoints[i].ResetCheckpoint();
         }
     }
+
+    #endregion
+
+
+    #region Getters and Setters
+
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Getters and Setters
+    /// ------------------------------------------------------------------------------------------------------------------------
 
     public void SetSpawnPoint(Vector3 newSpawnPoint)
     {
@@ -39,4 +55,6 @@ public class CheckpointController : MonoBehaviour
     { 
         return spawnPoint; 
     }
+
+    #endregion
 }

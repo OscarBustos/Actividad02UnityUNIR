@@ -109,7 +109,9 @@ public class PlayerController : CharaterController
 
         //}
     }
+
     #endregion
+
 
     #region Getters and Setters
 
@@ -136,6 +138,16 @@ public class PlayerController : CharaterController
     public int GetMaxLives()
     {
         return maxLives;
+    }
+
+    public void SetRigidBody()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void SetIsGrounded(bool value)
+    {
+        isGrounded = value;
     }
 
     #endregion

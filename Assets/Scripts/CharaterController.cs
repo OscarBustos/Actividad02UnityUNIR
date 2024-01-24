@@ -61,6 +61,7 @@ public class CharaterController : MonoBehaviour
 
     #endregion
 
+
     #region Getters and Setters
 
     /// ------------------------------------------------------------------------------------------------------------------------

@@ -7,6 +7,27 @@ public class Checkpoint : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite checkpointOn, checkpointOff;
 
+
+    #region Methods
+
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Methods
+    /// ------------------------------------------------------------------------------------------------------------------------
+    
+    public void ResetCheckpoint()
+    {
+        spriteRenderer.sprite = checkpointOff;
+    }
+
+    #endregion
+
+
+    #region Events
+
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Events
+    /// ------------------------------------------------------------------------------------------------------------------------
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -17,8 +38,5 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
-    public void ResetCheckpoint()
-    {
-        spriteRenderer.sprite = checkpointOff;
-    }
+    #endregion
 }
