@@ -13,6 +13,7 @@ public class PlayerController : CharaterController
     [SerializeField] private float wallRayDistance = 1;
     private int maxJumps = 2; 
     private int numJumps;
+    private int maxLives;
 
     [Header("Animator")]
     private Animator anim;
@@ -272,25 +273,19 @@ public class PlayerController : CharaterController
       //  transform.localEulerAngles = Vector3.zero;
     }
 
-    public void CollectObject(CollectibleType collectibleType, int amount)
+    public void DealDamage()
     {
-        switch (collectibleType)
+        lives--;
+        if (lives <= 0)
         {
-            case CollectibleType.Point: 
-                { 
-                    points += amount;
-                    break;
-                }
-
-            case CollectibleType.Lifes:
-                {
-                    lives += amount;
-                    break;
-                }
+            lives = 0;
+            LevelManager.instance.RespawnPlayer();
         }
-        
-    }
+        //else
+        //{
 
+        //}
+    }
 
     #endregion
 
@@ -304,6 +299,25 @@ public class PlayerController : CharaterController
         {
             lives --;
         }
+    }
+
+    public void CollectObject(CollectibleType collectibleType, int amount)
+    {
+        switch (collectibleType)
+        {
+            case CollectibleType.Point:
+                {
+                    points += amount;
+                    break;
+                }
+
+            case CollectibleType.Lifes:
+                {
+                    lives += amount;
+                    break;
+                }
+        }
+
     }
 
     #endregion
@@ -335,6 +349,26 @@ public class PlayerController : CharaterController
     public void SetCanWallJump()
     {
         canWalkJump = true;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public void SetPosition(Vector3 newPosition)
+    {
+        transform.position = newPosition;
+    }
+
+    public int GetMaxLives()
+    {
+        return maxLives;
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
     }
     #endregion
 }

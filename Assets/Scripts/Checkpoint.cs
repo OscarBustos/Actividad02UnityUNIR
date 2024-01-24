@@ -1,21 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
-public class EnemyController : CharaterController
+public class Checkpoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        lives = 1;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        HandleDeath();
-    }
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite checkpointOn, checkpointOff;
 
 
     #region Methods
@@ -23,29 +13,30 @@ public class EnemyController : CharaterController
     /// ------------------------------------------------------------------------------------------------------------------------
     /// Methods
     /// ------------------------------------------------------------------------------------------------------------------------
-
-    public void HandleDeath()
+    
+    public void ResetCheckpoint()
     {
-        if (IsDead())
-        {
-            StartCoroutine(Die());
-        }
+        spriteRenderer.sprite = checkpointOff;
     }
+
     #endregion
 
 
-    #region Coroutines
+    #region Events
 
     /// ------------------------------------------------------------------------------------------------------------------------
-    /// Coroutines
+    /// Events
     /// ------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator Die()
+    
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Todo: play particles, sound and animations
-        animator.SetBool("Die", true);
-        rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject);
+        if (collision.CompareTag("Player"))
+        {
+            CheckpointController.instance.DeactivateCheckpoints();
+            spriteRenderer.sprite = checkpointOn;
+            CheckpointController.instance.SetSpawnPoint(transform.position);
+        }
     }
+
     #endregion
 }

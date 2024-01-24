@@ -61,6 +61,7 @@ public class CharaterController : MonoBehaviour
 
     #endregion
 
+
     #region Getters and Setters
 
     /// ------------------------------------------------------------------------------------------------------------------------
@@ -98,5 +99,6 @@ public class CharaterController : MonoBehaviour
     }
 
     public bool IsDead() => dead = lives <= 0 || dead ? true : false;
+
     #endregion
 }

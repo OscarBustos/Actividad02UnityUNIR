@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
-public class EnemyController : CharaterController
+public class LevelManager : MonoBehaviour
 {
+    private float waitToRespawn = 1f;
+    [SerializeField] private PlayerController player;
+
+    public static LevelManager instance;
+
+
+    private void Awake()
+    {
+        instance = this; 
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        lives = 1;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleDeath();
+        
     }
-
 
     #region Methods
 
@@ -24,13 +33,20 @@ public class EnemyController : CharaterController
     /// Methods
     /// ------------------------------------------------------------------------------------------------------------------------
 
-    public void HandleDeath()
+    public void RespawnPlayer()
     {
-        if (IsDead())
-        {
-            StartCoroutine(Die());
-        }
+        StartCoroutine(RespawnCoroutine());
     }
+
+    private void PlayerChanges()
+    {
+        player.SetPosition(CheckpointController.instance.GetSpawnPoint());
+        //player.SetRigidBody();
+        //player.SetIsGrounded(true);
+        player.SetLives(player.GetLives() - 1);
+        player.GetGameObject().SetActive(true);
+    }
+
     #endregion
 
 
@@ -39,13 +55,13 @@ public class EnemyController : CharaterController
     /// ------------------------------------------------------------------------------------------------------------------------
     /// Coroutines
     /// ------------------------------------------------------------------------------------------------------------------------
-    private IEnumerator Die()
+
+    IEnumerator RespawnCoroutine()
     {
-        // Todo: play particles, sound and animations
-        animator.SetBool("Die", true);
-        rb.velocity = Vector2.zero;
-        yield return new WaitForSeconds(0.5f);
-        Destroy(gameObject);
+        player.GetGameObject().SetActive(false);
+        yield return new WaitForSeconds(waitToRespawn);
+        PlayerChanges();
     }
+
     #endregion
 }
