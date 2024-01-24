@@ -17,11 +17,16 @@ public class GameManager : MonoBehaviour
     private const int TIME_UNIT = 60;
     
     private bool paused = false;
+    private bool reload;
 
     [SerializeField] private bool gameStarted = false;
+
     
     [SerializeField] private Button pauseButton;
     [SerializeField] private Button resumeButton;
+    [SerializeField] private GameObject playerSpawnPoint;
+
+    [SerializeField] private GameObject gameOverCanvace;
 
 
     #region Events
@@ -30,10 +35,21 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        ChangePlayerSpawningPoint(playerSpawnPoint);
+        if (instance == null || reload)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            if (PlayerPrefs.GetInt("GameStarted") == 0)
+            {
+                Time.timeScale = 1;
+                PlayerPrefs.SetInt("GameStarted", 1);
+                PlayerPrefs.SetInt("CanMove", 0);
+                PlayerPrefs.SetInt("CanJump", 0);
+                PlayerPrefs.SetInt("CanDoubleJump", 0);
+                PlayerPrefs.SetInt("CanWallJump", 0);
+            }
+            reload = false;
         }
         else
         {
@@ -69,5 +85,21 @@ public class GameManager : MonoBehaviour
             
         }
 
+    }
+
+    public void ChangePlayerSpawningPoint(GameObject spawnPoint)
+    {
+        PlayerPrefs.SetFloat("SpawnPointX", spawnPoint.transform.position.x);
+        PlayerPrefs.SetFloat("SpawnPointy", spawnPoint.transform.position.y);
+    }
+
+    public void GameOver()
+    {
+        gameOverCanvace.SetActive(true);
+    }
+
+    public void Reload()
+    {
+        Destroy(gameObject);
     }
 }

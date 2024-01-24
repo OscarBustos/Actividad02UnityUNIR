@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectibleType: 1
-  amount: 10
+  amount: 1
 --- !u!61 &3895184506834996248
 BoxCollider2D:
   m_ObjectHideFlags: 0

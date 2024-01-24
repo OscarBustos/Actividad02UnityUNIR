@@ -214,7 +214,7 @@ Transform:
   m_GameObject: {fileID: 6917124073486257117}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.628, z: 0}
+  m_LocalPosition: {x: 0, y: -0.526, z: 0}
   m_LocalScale: {x: 0.04490798, y: 0.100390434, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -324,10 +324,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 503
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -341,10 +341,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.050497383}
+  m_Offset: {x: 0, y: -0.050497413}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -355,7 +355,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.1009946}
+  m_Size: {x: 11.086342, y: 1.1009946}
   m_EdgeRadius: 0
 --- !u!1 &7080986831712448402
 GameObject:
@@ -473,10 +473,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   wallRayDistance: 0.5
-  canMove: 1
-  canJump: 1
-  canDoubleJump: 1
-  canWalkJump: 1
+  canMove: 0
+  canJump: 0
+  canDoubleJump: 0
+  canWalkJump: 0
 --- !u!50 &1896923406227235031
 Rigidbody2D:
   serializedVersion: 4
@@ -678,10 +678,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 447
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

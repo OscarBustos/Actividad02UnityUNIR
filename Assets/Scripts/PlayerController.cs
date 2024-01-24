@@ -44,9 +44,17 @@ public class PlayerController : CharaterController
     {
         Wall, Air, Ground
     }
+
     // Start is called before the first frame update
     void Start()
     {
+        float x = PlayerPrefs.GetFloat("SpawnPointX");
+        float y = PlayerPrefs.GetFloat("SpawnPointy");
+        canMove = PlayerPrefs.GetInt("CanMove") == 1;
+        canJump = PlayerPrefs.GetInt("CanJump") == 1;
+        canDoubleJump = PlayerPrefs.GetInt("CanDoubleJump") == 1;
+        canWalkJump = PlayerPrefs.GetInt("CanWallJump") == 1;
+        transform.position = new Vector2(x, y);
         //isGrounded = true;
         //speed = 5f;
         numJumps = 0;
@@ -64,7 +72,7 @@ public class PlayerController : CharaterController
     {
         if (IsDead())
         {
-            //GameManager.Instance.GameOver(false);
+            GameManager.Instance.GameOver();
         }
         else
         {
@@ -275,16 +283,7 @@ public class PlayerController : CharaterController
 
     public void DealDamage()
     {
-        lives--;
-        if (lives <= 0)
-        {
-            lives = 0;
-            LevelManager.instance.RespawnPlayer();
-        }
-        //else
-        //{
-
-        //}
+        LevelManager.instance.RespawnPlayer();
     }
 
     #endregion
@@ -297,7 +296,7 @@ public class PlayerController : CharaterController
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            lives --;
+             DealDamage();
         }
     }
 
