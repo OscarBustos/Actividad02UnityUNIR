@@ -36,7 +36,6 @@ public class PlayerController : CharaterController
             Move();
             StandUp();
             anim.SetFloat("moveSpeed", Mathf.Abs(rb.velocity.x));
-            Debug.Log(Mathf.Abs(rb.velocity.x));
             anim.SetBool("isGrounded", isGrounded);
         }        
     }
@@ -93,7 +92,7 @@ public class PlayerController : CharaterController
 
     private void StandUp()
     {
-        transform.localEulerAngles = Vector2.zero;
+        transform.localEulerAngles = Vector3.zero;
     }
 
     public void CollectObject(CollectibleType collectibleType, int amount)
