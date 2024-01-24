@@ -12,7 +12,6 @@ public class PlayerController : CharaterController
     [Header("Animator")]
     private Animator anim;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +69,7 @@ public class PlayerController : CharaterController
         Flip(direction);
     }
 
+
     private void Jump()
     {
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -95,23 +95,40 @@ public class PlayerController : CharaterController
         transform.localEulerAngles = Vector3.zero;
     }
 
-    public void CollectObject(CollectibleType collectibleType, int amount)
+    public void DealDamage()
     {
-        switch (collectibleType)
+        lives--;
+        if (lives <= 0)
         {
-            case CollectibleType.Point: 
-                { 
-                    points += amount;
-                    break;
-                }
-
-            case CollectibleType.Lifes:
-                {
-                    lives += amount;
-                    break;
-                }
+            lives = 0;
+            LevelManager.instance.RespawnPlayer();
         }
-        
+        //else
+        //{
+
+        //}
+    }
+    #endregion
+
+    #region Getters and Setters
+
+    /// ------------------------------------------------------------------------------------------------------------------------
+    /// Getters and Setters
+    /// ------------------------------------------------------------------------------------------------------------------------
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public void SetPosition(Vector3 newPosition)
+    {
+        transform.position = newPosition;
     }
     #endregion
 
@@ -134,6 +151,25 @@ public class PlayerController : CharaterController
         {
             lives --;
         }
+    }
+
+    public void CollectObject(CollectibleType collectibleType, int amount)
+    {
+        switch (collectibleType)
+        {
+            case CollectibleType.Point:
+                {
+                    points += amount;
+                    break;
+                }
+
+            case CollectibleType.Lifes:
+                {
+                    lives += amount;
+                    break;
+                }
+        }
+
     }
 
     #endregion

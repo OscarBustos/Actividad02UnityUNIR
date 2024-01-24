@@ -6,6 +6,7 @@ public class CheckpointController : MonoBehaviour
 {
     private Checkpoint[] checkpoints;
     private Vector3 spawnPoint;
+    [SerializeField] private PlayerController player;
 
     public static CheckpointController instance;
 
@@ -18,6 +19,7 @@ public class CheckpointController : MonoBehaviour
     void Start()
     {
         checkpoints = FindObjectsOfType<Checkpoint>();
+        spawnPoint = player.GetPosition();
     }
 
     public void DeativateCheckpoints()
@@ -31,5 +33,10 @@ public class CheckpointController : MonoBehaviour
     public void SetSpawnPoint(Vector3 newSpawnPoint)
     {
         spawnPoint = newSpawnPoint;
+    }
+
+    public Vector3 GetSpawnPoint() 
+    { 
+        return spawnPoint; 
     }
 }
