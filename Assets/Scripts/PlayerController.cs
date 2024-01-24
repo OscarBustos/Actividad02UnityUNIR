@@ -102,6 +102,7 @@ public class PlayerController : CharaterController
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && canJump)
         {
             jump = true;
+            PlaySound();
         }
     }
 
@@ -297,7 +298,6 @@ public class PlayerController : CharaterController
     }
 
     #endregion
-
 
 
     #region Collisions
