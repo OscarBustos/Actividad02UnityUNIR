@@ -318,8 +318,11 @@ public class PlayerController : CharaterController
 
             case CollectibleType.Lifes:
                 {
-                    lives += amount;
-                    UpdateLifes();
+                    if(lives < 3)
+                    {
+                        lives += amount;
+                        UpdateLifes();
+                    }
                     break;
                 }
         }
